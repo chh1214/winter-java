@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="spring.demo.dao.CarDao">
+    	<select id="queryById" resultType="Car" parameterType="int">
+    		SELECT name, id, price FROM car_list WHERE id = #{id}					
+    	</select>
+    	<select id="selectCarList" resultMap="CarFuzzylistMap" parameterType="Map">
+    		SELECT name, id, price FROM car_list WHERE id like #{keyWord} or name like #{keyWord} or price like #{keyWord} order by id limit #{start}, 5					
+    	</select>
+    	<select id="selectCount" resultType="int" parameterType="Map">
+    		SELECT count(1)  FROM car_list WHERE id like #{keyWord} or name like #{keyWord} or price like #{keyWord}				
+    	</select>
+    	<resultMap type="Car" id="CarFuzzylistMap">
+    	 	<id property="id" column="id"/>
+         	<result property="name" column="name"/>
+			<result property="price" column="price"/>
+    	 </resultMap>	    	 
+    	 <!-- <select id="selectCarList" resultMap="CarlistMap" parameterType="int">
+    		SELECT name, id, price FROM car_list order by id limit #{start}, 10					
+    	</select>
+    	 <resultMap type="Car" id="CarlistMap">
+    	 	<id property="id" column="id"/>
+         	<result property="name" column="name"/>
+			<result property="price" column="price"/>
+    	 </resultMap> -->	 
+    	 <update id="updateOneCar" parameterType="Car">
+    	 	update car_list set
+    	 		id=#{id},
+    	 		name=#{name},
+    	 		price=#{price}
+    	 	where id=#{id}	
+    	 </update>    	 
+    	 <insert id="insertOneCar" parameterType="Car">
+    	 	insert into car_list (id, name, price) 
+    	 			values(#{id}, #{name}, #{price})
+    	 </insert>
+    	 <delete id="deleteOneCar" parameterType="Car">  
+         	delete from car_list where id=#{id}
+		 </delete> 
+    </mapper>
