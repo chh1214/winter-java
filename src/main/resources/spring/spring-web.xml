@@ -52,6 +52,14 @@
 	 	<property name="prefix" value="/WEB-INF/pages/" />
 	 	<property name="suffix" value=".jsp" />
 	 </bean>
+	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	<!--  <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			 <mvc:exclude-mapping path="/error/*" />
+			<bean class="spring.demo.interceptor.LogInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> -->
 	 
 	<!-- 4.扫描controller相关的bean -->
 	<context:component-scan base-package="spring.demo.controller"/>
